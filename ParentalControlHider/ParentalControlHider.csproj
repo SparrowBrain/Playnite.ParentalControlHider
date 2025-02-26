@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ParentalControlHider.cs" />
+    <Compile Include="Services\Filters\ManagedGamesFilter.cs" />
     <Compile Include="Services\Filters\TagsBlacklist.cs" />
     <Compile Include="Settings\ParentalControlHiderSettings.cs" />
     <Compile Include="Settings\MVVM\ParentalControlHiderSettingsViewModel.cs" />
