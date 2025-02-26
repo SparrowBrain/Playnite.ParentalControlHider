@@ -2,7 +2,7 @@
 
 namespace ParentalControlHider.Services.Filters
 {
-	public class ManagedGamesFilter
+	public class ManagedGamesFilter : IManagedGamesFilter
 	{
 		public bool IsGameManagedByParentalHider(Game game, Tag parentalHiderTag)
 		{

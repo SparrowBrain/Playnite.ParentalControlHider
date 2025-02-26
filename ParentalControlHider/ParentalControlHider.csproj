@@ -49,14 +49,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ParentalControlHider.cs" />
+    <Compile Include="Services\Filters\IManagedGamesFilter.cs" />
+    <Compile Include="Services\Filters\ITagsBlacklist.cs" />
     <Compile Include="Services\Filters\ManagedGamesFilter.cs" />
     <Compile Include="Services\Filters\TagsBlacklist.cs" />
+    <Compile Include="Services\IParentalHiderTagProvider.cs" />
+    <Compile Include="Services\ParentalHiderTagProvider.cs" />
+    <Compile Include="Settings\IPluginSettingsPersistence.cs" />
     <Compile Include="Settings\ParentalControlHiderSettings.cs" />
     <Compile Include="Settings\MVVM\ParentalControlHiderSettingsViewModel.cs" />
     <Compile Include="Settings\MVVM\ParentalControlHiderSettingsView.xaml.cs">
       <DependentUpon>ParentalControlHiderSettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\PluginSettingsPersistence.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="extension.yaml">

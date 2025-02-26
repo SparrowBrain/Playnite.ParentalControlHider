@@ -4,7 +4,7 @@ using Playnite.SDK.Models;
 
 namespace ParentalControlHider.Services.Filters
 {
-	public class TagsBlacklist
+	public class TagsBlacklist : ITagsBlacklist
 	{
 		public bool DoesItContainBlacklistedTag(Game game, ParentalControlHiderSettings settings)
 		{
