@@ -1,8 +1,10 @@
-﻿using Playnite.SDK;
+﻿using System;
+using Playnite.SDK;
 using Playnite.SDK.Data;
 using Playnite.SDK.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 
@@ -10,14 +12,17 @@ namespace ParentalControlHider.Settings.MVVM
 {
 	public class ParentalControlHiderSettingsViewModel : ObservableObject, ISettings
 	{
+		private readonly ILogger _logger = LogManager.GetLogger();
 		private readonly ParentalControlHider _plugin;
 
 		private ParentalControlHiderSettings _editingClone;
 		private ParentalControlHiderSettings _settings;
-		private ObservableCollection<Tag> _allowedTags;
-		private ObservableCollection<Tag> _blacklistedTags;
+		private ObservableCollection<Tag> _allowedTags = new ObservableCollection<Tag>();
+		private ObservableCollection<Tag> _blacklistedTags = new ObservableCollection<Tag>();
 		private Tag _selectedAllowedTag;
 		private Tag _selectedBlacklistedTag;
+		private string _allowedTagsFilter;
+		private string _blacklistedTagsFilter;
 
 		public ParentalControlHiderSettingsViewModel(ParentalControlHider plugin)
 		{
@@ -50,6 +55,16 @@ namespace ParentalControlHider.Settings.MVVM
 			set => SetValue(ref _selectedAllowedTag, value);
 		}
 
+		public string AllowedTagsFilter
+		{
+			get => _allowedTagsFilter;
+			set
+			{
+				SetValue(ref _allowedTagsFilter, value);
+				InitializeTags();
+			}
+		}
+
 		public ObservableCollection<Tag> BlacklistedTags
 		{
 			get => _blacklistedTags;
@@ -62,13 +77,22 @@ namespace ParentalControlHider.Settings.MVVM
 			set => SetValue(ref _selectedBlacklistedTag, value);
 		}
 
+		public string BlacklistedTagsFilter
+		{
+			get => _blacklistedTagsFilter;
+			set
+			{
+				SetValue(ref _blacklistedTagsFilter, value);
+				InitializeTags();
+			}
+		}
+
 		public ICommand BlacklistTagCommand => new RelayCommand(() =>
 		{
 			if (SelectedAllowedTag != null)
 			{
 				Settings.BlacklistedTagIds.Add(SelectedAllowedTag.Id);
-				AllowedTags.Remove(SelectedAllowedTag);
-				BlacklistedTags.Add(SelectedAllowedTag);
+				InitializeTags();
 				SelectedAllowedTag = null;
 			}
 		});
@@ -78,8 +102,7 @@ namespace ParentalControlHider.Settings.MVVM
 			if (SelectedBlacklistedTag != null)
 			{
 				Settings.BlacklistedTagIds.Remove(SelectedBlacklistedTag.Id);
-				AllowedTags.Add(SelectedBlacklistedTag);
-				BlacklistedTags.Remove(SelectedBlacklistedTag);
+				InitializeTags();
 				SelectedBlacklistedTag = null;
 			}
 		});
@@ -112,8 +135,17 @@ namespace ParentalControlHider.Settings.MVVM
 		private void InitializeTags()
 		{
 			var allTags = _plugin.PlayniteApi.Database.Tags.ToList();
-			BlacklistedTags = allTags.Where(x => Settings.BlacklistedTagIds.Contains(x.Id)).ToObservable();
-			AllowedTags = allTags.Except(BlacklistedTags).ToObservable();
+
+			BlacklistedTags = allTags
+				.Where(x => Settings.BlacklistedTagIds.Contains(x.Id)
+					&& (string.IsNullOrEmpty(BlacklistedTagsFilter) || x.Name.ToLower().Contains(BlacklistedTagsFilter.ToLower())))
+				.OrderBy(x => x.Name)
+				.ToObservable();
+
+			AllowedTags = allTags.Where(x => !Settings.BlacklistedTagIds.Contains(x.Id)
+					&& (string.IsNullOrEmpty(AllowedTagsFilter) || x.Name.ToLower().Contains(AllowedTagsFilter.ToLower())))
+				.OrderBy(x => x.Name)
+				.ToObservable();
 		}
 	}
 }

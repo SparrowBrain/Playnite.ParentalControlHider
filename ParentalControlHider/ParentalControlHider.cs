@@ -1,11 +1,13 @@
-﻿using Playnite.SDK;
+﻿using ParentalControlHider.Services;
+using ParentalControlHider.Services.Filters;
+using ParentalControlHider.Settings;
+using ParentalControlHider.Settings.MVVM;
+using Playnite.SDK;
 using Playnite.SDK.Events;
-using Playnite.SDK.Models;
 using Playnite.SDK.Plugins;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Windows.Controls;
-using ParentalControlHider.Settings.MVVM;
 
 namespace ParentalControlHider
 {
@@ -53,28 +55,7 @@ namespace ParentalControlHider
 
 		public override void OnApplicationStarted(OnApplicationStartedEventArgs args)
 		{
-			var tag = PlayniteApi.Database.Tags.FirstOrDefault(x => x.Name == "[ParentalControlHider] Hidden");
-			if (tag == null)
-			{
-				tag = new Tag() { Id = Guid.NewGuid(), Name = "[ParentalControlHider] Hidden" };
-				PlayniteApi.Database.Tags.Add(tag);
-			}
-
-			var games = PlayniteApi.Database.Games.Where(x => !x.Hidden).ToList();
-
-			using (var update = PlayniteApi.Database.BufferedUpdate())
-			{
-				foreach (var game in games.Where(x => x.Tags?.Exists(t => t.Name == "Horror") ?? false))
-				{
-					game.Hidden = true;
-					if (!game.TagIds.Contains(tag.Id))
-					{
-						game.TagIds.Add(tag.Id);
-					}
-
-					PlayniteApi.Database.Games.Update(game);
-				}
-			}
+			HideGames();
 		}
 
 		public override void OnApplicationStopped(OnApplicationStoppedEventArgs args)
@@ -87,6 +68,16 @@ namespace ParentalControlHider
 			// Add code to be executed when library is updated.
 		}
 
+		public override IEnumerable<MainMenuItem> GetMainMenuItems(GetMainMenuItemsArgs args)
+		{
+			yield return new MainMenuItem
+			{
+				Description = ResourceProvider.GetString("LOC_ParentalControlHider_MainMenu_Hide"),
+				MenuSection = "@Parental Control Hider",
+				Action = actionArgs => { HideGames(); }
+			};
+		}
+
 		public override ISettings GetSettings(bool firstRunSettings)
 		{
 			return _settings;
@@ -95,6 +86,22 @@ namespace ParentalControlHider
 		public override UserControl GetSettingsView(bool firstRunSettings)
 		{
 			return new ParentalControlHiderSettingsView();
+		}
+
+		private void HideGames()
+		{
+			var pluginSettingsPersistence = new PluginSettingsPersistence(this);
+			var parentalHiderTagProvider = new ParentalHiderTagProvider(PlayniteApi);
+			var managedGamesFilter = new ManagedGamesFilter();
+			var tagsBlacklist = new TagsBlacklist();
+			var mainService = new MainService(
+				PlayniteApi,
+				pluginSettingsPersistence,
+				parentalHiderTagProvider,
+				managedGamesFilter,
+				tagsBlacklist);
+
+			mainService.HideGames();
 		}
 	}
 }

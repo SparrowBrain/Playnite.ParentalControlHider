@@ -5,6 +5,6 @@ namespace ParentalControlHider.Settings
 {
     public class ParentalControlHiderSettings : ObservableObject
     {
-        public List<Guid> BlacklistedTagIds { get; set; }
-    }
+        public List<Guid> BlacklistedTagIds { get; set; } = new List<Guid>();
+	}
 }

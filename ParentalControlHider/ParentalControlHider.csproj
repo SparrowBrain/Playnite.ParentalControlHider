@@ -54,6 +54,7 @@
     <Compile Include="Services\Filters\ManagedGamesFilter.cs" />
     <Compile Include="Services\Filters\TagsBlacklist.cs" />
     <Compile Include="Services\IParentalHiderTagProvider.cs" />
+    <Compile Include="Services\MainService.cs" />
     <Compile Include="Services\ParentalHiderTagProvider.cs" />
     <Compile Include="Settings\IPluginSettingsPersistence.cs" />
     <Compile Include="Settings\ParentalControlHiderSettings.cs" />
