@@ -8,7 +8,7 @@ namespace ParentalControlHider.Services.Filters
 	{
 		public bool DoesItContainBlacklistedTag(Game game, ParentalControlHiderSettings settings)
 		{
-			return game.TagIds.Any(x => settings.BlacklistedTagIds.Contains(x));
+			return game.TagIds?.Any(x => settings.BlacklistedTagIds.Contains(x)) ?? false;
 		}
 	}
 }

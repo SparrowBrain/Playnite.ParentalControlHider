@@ -6,7 +6,7 @@ namespace ParentalControlHider.Services.Filters
 	{
 		public bool IsGameManagedByParentalHider(Game game, Tag parentalHiderTag)
 		{
-			return !game.Hidden || game.Hidden && game.TagIds.Contains(parentalHiderTag.Id);
+			return !game.Hidden || game.Hidden && (game.TagIds?.Contains(parentalHiderTag.Id) ?? false);
 		}
 	}
 }

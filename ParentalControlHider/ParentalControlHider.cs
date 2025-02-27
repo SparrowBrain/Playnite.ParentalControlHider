@@ -28,44 +28,14 @@ namespace ParentalControlHider
 			};
 		}
 
-		public override void OnGameInstalled(OnGameInstalledEventArgs args)
-		{
-			// Add code to be executed when game is finished installing.
-		}
-
-		public override void OnGameStarted(OnGameStartedEventArgs args)
-		{
-			// Add code to be executed when game is started running.
-		}
-
-		public override void OnGameStarting(OnGameStartingEventArgs args)
-		{
-			// Add code to be executed when game is preparing to be started.
-		}
-
-		public override void OnGameStopped(OnGameStoppedEventArgs args)
-		{
-			// Add code to be executed when game is preparing to be started.
-		}
-
-		public override void OnGameUninstalled(OnGameUninstalledEventArgs args)
-		{
-			// Add code to be executed when game is uninstalled.
-		}
-
 		public override void OnApplicationStarted(OnApplicationStartedEventArgs args)
 		{
 			HideGames();
 		}
 
-		public override void OnApplicationStopped(OnApplicationStoppedEventArgs args)
-		{
-			// Add code to be executed when Playnite is shutting down.
-		}
-
 		public override void OnLibraryUpdated(OnLibraryUpdatedEventArgs args)
 		{
-			// Add code to be executed when library is updated.
+			HideGames();
 		}
 
 		public override IEnumerable<MainMenuItem> GetMainMenuItems(GetMainMenuItemsArgs args)
@@ -90,18 +60,26 @@ namespace ParentalControlHider
 
 		private void HideGames()
 		{
-			var pluginSettingsPersistence = new PluginSettingsPersistence(this);
-			var parentalHiderTagProvider = new ParentalHiderTagProvider(PlayniteApi);
-			var managedGamesFilter = new ManagedGamesFilter();
-			var tagsBlacklist = new TagsBlacklist();
-			var mainService = new MainService(
-				PlayniteApi,
-				pluginSettingsPersistence,
-				parentalHiderTagProvider,
-				managedGamesFilter,
-				tagsBlacklist);
+			try
+			{
+				var pluginSettingsPersistence = new PluginSettingsPersistence(this);
+				var parentalHiderTagProvider = new ParentalHiderTagProvider(PlayniteApi);
+				var managedGamesFilter = new ManagedGamesFilter();
+				var tagsBlacklist = new TagsBlacklist();
+				var mainService = new MainService(
+					PlayniteApi,
+					pluginSettingsPersistence,
+					parentalHiderTagProvider,
+					managedGamesFilter,
+					tagsBlacklist);
 
-			mainService.HideGames();
+				mainService.HideGames();
+			}
+			catch (Exception e)
+			{
+				Logger.Error(e, "Failed to hide games.");
+				PlayniteApi.Dialogs.ShowErrorMessage(ResourceProvider.GetString("LOC_ParentalControlHider_Error_FailedToHide"));
+			}
 		}
 	}
 }

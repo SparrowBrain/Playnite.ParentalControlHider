@@ -1,4 +1,6 @@
-﻿using ParentalControlHider.Services.Filters;
+﻿using System;
+using System.Collections.Generic;
+using ParentalControlHider.Services.Filters;
 using ParentalControlHider.Settings;
 using Playnite.SDK;
 
@@ -39,11 +41,16 @@ namespace ParentalControlHider.Services
 					               && _tagsBlacklist.DoesItContainBlacklistedTag(game, settings);
 					game.Hidden = isHidden;
 
-					if (isHidden && !game.TagIds.Contains(tag.Id))
+					if (isHidden && !(game.TagIds?.Contains(tag.Id)?? false))
 					{
+						if (game.TagIds == null)
+						{
+							game.TagIds = new List<Guid>();
+						}
+
 						game.TagIds.Add(tag.Id);
 					}
-					else if (!isHidden && game.TagIds.Contains(tag.Id))
+					else if (!isHidden && (game.TagIds?.Contains(tag.Id) ?? false))
 					{
 						game.TagIds.Remove(tag.Id);
 					}
