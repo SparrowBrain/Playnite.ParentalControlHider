@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using ParentalControlHider.Services.Filters;
+﻿using ParentalControlHider.Services.Filters;
 using ParentalControlHider.Settings;
 using Playnite.SDK;
+using System;
+using System.Collections.Generic;
 
 namespace ParentalControlHider.Services
 {
@@ -38,10 +38,10 @@ namespace ParentalControlHider.Services
 				foreach (var game in _api.Database.Games)
 				{
 					var isHidden = _managedGamesFilter.IsGameManagedByParentalHider(game, tag)
-					               && _tagsBlacklist.DoesItContainBlacklistedTag(game, settings);
+								   && _tagsBlacklist.DoesItContainBlacklistedTag(game, settings);
 					game.Hidden = isHidden;
 
-					if (isHidden && !(game.TagIds?.Contains(tag.Id)?? false))
+					if (isHidden && !(game.TagIds?.Contains(tag.Id) ?? false))
 					{
 						if (game.TagIds == null)
 						{
@@ -56,6 +56,24 @@ namespace ParentalControlHider.Services
 					}
 
 					_api.Database.Games.Update(game);
+				}
+			}
+		}
+
+		public void UnHideGames()
+		{
+			var tag = _parentalHiderTagProvider.GetParentalHiderTag();
+
+			using (var _ = _api.Database.BufferedUpdate())
+			{
+				foreach (var game in _api.Database.Games)
+				{
+					if (game.Hidden && (game.TagIds?.Contains(tag.Id) ?? false))
+					{
+						game.Hidden = false;
+						game.TagIds.Remove(tag.Id);
+						_api.Database.Games.Update(game);
+					}
 				}
 			}
 		}

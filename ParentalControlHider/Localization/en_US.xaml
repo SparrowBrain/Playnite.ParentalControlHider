@@ -2,7 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="LOC_ParentalControlHider_Error_FailedToHide">Failed to hide games.</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Error_FailedToUnHide">Failed to unhide games.</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_MainMenu_Hide">Hide Games</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_MainMenu_UnHide">Unhide Games</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_Tags_Allowed">Allowed</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_Tags_Blacklisted">Blacklisted</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_Tags_Filter">Filter</sys:String>

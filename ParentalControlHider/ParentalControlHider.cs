@@ -7,6 +7,7 @@ using Playnite.SDK.Events;
 using Playnite.SDK.Plugins;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace ParentalControlHider
@@ -46,6 +47,12 @@ namespace ParentalControlHider
 				MenuSection = "@Parental Control Hider",
 				Action = actionArgs => { HideGames(); }
 			};
+			yield return new MainMenuItem
+			{
+				Description = ResourceProvider.GetString("LOC_ParentalControlHider_MainMenu_UnHide"),
+				MenuSection = "@Parental Control Hider",
+				Action = actionArgs => { UnHideGames(); }
+			};
 		}
 
 		public override ISettings GetSettings(bool firstRunSettings)
@@ -60,26 +67,60 @@ namespace ParentalControlHider
 
 		private void HideGames()
 		{
-			try
+			Task.Run(() =>
 			{
-				var pluginSettingsPersistence = new PluginSettingsPersistence(this);
-				var parentalHiderTagProvider = new ParentalHiderTagProvider(PlayniteApi);
-				var managedGamesFilter = new ManagedGamesFilter();
-				var tagsBlacklist = new TagsBlacklist();
-				var mainService = new MainService(
-					PlayniteApi,
-					pluginSettingsPersistence,
-					parentalHiderTagProvider,
-					managedGamesFilter,
-					tagsBlacklist);
+				try
+				{
+					var pluginSettingsPersistence = new PluginSettingsPersistence(this);
+					var parentalHiderTagProvider = new ParentalHiderTagProvider(PlayniteApi);
+					var managedGamesFilter = new ManagedGamesFilter();
+					var tagsBlacklist = new TagsBlacklist();
+					var mainService = new MainService(
+						PlayniteApi,
+						pluginSettingsPersistence,
+						parentalHiderTagProvider,
+						managedGamesFilter,
+						tagsBlacklist);
 
-				mainService.HideGames();
-			}
-			catch (Exception e)
+					mainService.HideGames();
+				}
+				catch (Exception e)
+				{
+					Logger.Error(e, "Failed to hide games.");
+					PlayniteApi.MainView.UIDispatcher.Invoke(() =>
+						PlayniteApi.Dialogs.ShowErrorMessage(
+							ResourceProvider.GetString("LOC_ParentalControlHider_Error_FailedToHide")));
+				}
+			});
+		}
+
+		private void UnHideGames()
+		{
+			Task.Run(() =>
 			{
-				Logger.Error(e, "Failed to hide games.");
-				PlayniteApi.Dialogs.ShowErrorMessage(ResourceProvider.GetString("LOC_ParentalControlHider_Error_FailedToHide"));
-			}
+				try
+				{
+					var pluginSettingsPersistence = new PluginSettingsPersistence(this);
+					var parentalHiderTagProvider = new ParentalHiderTagProvider(PlayniteApi);
+					var managedGamesFilter = new ManagedGamesFilter();
+					var tagsBlacklist = new TagsBlacklist();
+					var mainService = new MainService(
+						PlayniteApi,
+						pluginSettingsPersistence,
+						parentalHiderTagProvider,
+						managedGamesFilter,
+						tagsBlacklist);
+
+					mainService.UnHideGames();
+				}
+				catch (Exception e)
+				{
+					Logger.Error(e, "Failed to unhide games.");
+					PlayniteApi.MainView.UIDispatcher.Invoke(() =>
+						PlayniteApi.Dialogs.ShowErrorMessage(
+							ResourceProvider.GetString("LOC_ParentalControlHider_Error_FailedToUnHide")));
+				}
+			});
 		}
 	}
 }
