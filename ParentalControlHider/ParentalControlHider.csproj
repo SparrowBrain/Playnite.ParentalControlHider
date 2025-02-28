@@ -57,6 +57,7 @@
     <Compile Include="Services\MainService.cs" />
     <Compile Include="Services\ParentalHiderTagProvider.cs" />
     <Compile Include="Settings\IPluginSettingsPersistence.cs" />
+    <Compile Include="Settings\MVVM\AgeRatingsViewModel.cs" />
     <Compile Include="Settings\ParentalControlHiderSettings.cs" />
     <Compile Include="Settings\MVVM\ParentalControlHiderSettingsViewModel.cs" />
     <Compile Include="Settings\MVVM\ParentalControlHiderSettingsView.xaml.cs">

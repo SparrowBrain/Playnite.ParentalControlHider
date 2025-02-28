@@ -1,10 +1,8 @@
-﻿using System;
-using Playnite.SDK;
+﻿using Playnite.SDK;
 using Playnite.SDK.Data;
 using Playnite.SDK.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Input;
 
@@ -17,6 +15,7 @@ namespace ParentalControlHider.Settings.MVVM
 
 		private ParentalControlHiderSettings _editingClone;
 		private ParentalControlHiderSettings _settings;
+		private ObservableCollection<AgeRatingsViewModel> _ageRatings = new ObservableCollection<AgeRatingsViewModel>();
 		private ObservableCollection<Tag> _allowedTags = new ObservableCollection<Tag>();
 		private ObservableCollection<Tag> _blacklistedTags = new ObservableCollection<Tag>();
 		private Tag _selectedAllowedTag;
@@ -30,6 +29,7 @@ namespace ParentalControlHider.Settings.MVVM
 			var savedSettings = plugin.LoadPluginSettings<ParentalControlHiderSettings>();
 
 			Settings = savedSettings ?? new ParentalControlHiderSettings();
+			InitializeAgeRatings();
 			InitializeTags();
 		}
 
@@ -41,6 +41,12 @@ namespace ParentalControlHider.Settings.MVVM
 				_settings = value;
 				OnPropertyChanged();
 			}
+		}
+
+		public ObservableCollection<AgeRatingsViewModel> AgeRatings
+		{
+			get => _ageRatings;
+			set => SetValue(ref _ageRatings, value);
 		}
 
 		public ObservableCollection<Tag> AllowedTags
@@ -115,6 +121,7 @@ namespace ParentalControlHider.Settings.MVVM
 		public void CancelEdit()
 		{
 			Settings = _editingClone;
+			InitializeAgeRatings();
 			InitializeTags();
 		}
 
@@ -130,6 +137,24 @@ namespace ParentalControlHider.Settings.MVVM
 			// List of errors is presented to user if verification fails.
 			errors = new List<string>();
 			return true;
+		}
+
+		private void InitializeAgeRatings()
+		{
+			var ratings = new List<AgeRatingsViewModel>();
+			var allRatings = _plugin.PlayniteApi.Database.AgeRatings.ToList();
+
+			foreach (var rating in allRatings)
+			{
+				if (!Settings.AgeRatingsWithAge.TryGetValue(rating.Id, out var age))
+				{
+					age = 0;
+				}
+
+				ratings.Add(new AgeRatingsViewModel(rating.Id, Settings.UsedAgeRatings.Contains(rating.Id), rating.Name, age, Settings));
+			}
+
+			AgeRatings = ratings.OrderBy(x => x.Name).ToObservable();
 		}
 
 		private void InitializeTags()

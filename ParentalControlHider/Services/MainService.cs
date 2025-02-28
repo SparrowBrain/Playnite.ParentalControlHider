@@ -3,6 +3,7 @@ using ParentalControlHider.Settings;
 using Playnite.SDK;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ParentalControlHider.Services
 {
@@ -39,6 +40,7 @@ namespace ParentalControlHider.Services
 				{
 					var isHidden = _managedGamesFilter.IsGameManagedByParentalHider(game, tag)
 								   && _tagsBlacklist.DoesItContainBlacklistedTag(game, settings);
+
 					game.Hidden = isHidden;
 
 					if (isHidden && !(game.TagIds?.Contains(tag.Id) ?? false))

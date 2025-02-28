@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AgeRatingsAgeProviderTests.cs" />
     <Compile Include="Services\Filters\ManagedGamesFilterTests.cs" />
     <Compile Include="Services\Filters\TagsBlacklistTests.cs" />
     <Compile Include="Services\MainServiceTests.cs" />
