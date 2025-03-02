@@ -10,6 +10,7 @@ using Playnite.SDK.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Controls;
 
 namespace ParentalControlHider
@@ -17,8 +18,8 @@ namespace ParentalControlHider
 	public class ParentalControlHider : GenericPlugin
 	{
 		private static readonly ILogger Logger = LogManager.GetLogger();
-
 		private readonly ParentalControlHiderSettingsViewModel _settings;
+		private readonly Timer _hideGamesTimer = new Timer(TimeSpan.FromMinutes(30).TotalMilliseconds);
 
 		public override Guid Id { get; } = Guid.Parse("134725de-cfcb-4474-849b-5d9c52babb75");
 
@@ -29,6 +30,8 @@ namespace ParentalControlHider
 			{
 				HasSettings = true
 			};
+
+			_hideGamesTimer.Elapsed += (sender, args) => { HideGames(); };
 		}
 
 		public override void OnApplicationStarted(OnApplicationStartedEventArgs args)
@@ -85,6 +88,8 @@ namespace ParentalControlHider
 
 		private void HideGames()
 		{
+			_hideGamesTimer.Enabled = false;
+			_hideGamesTimer.Stop();
 			Task.Run(() =>
 			{
 				try
@@ -110,6 +115,8 @@ namespace ParentalControlHider
 				{
 					var mainService = CreateMainService();
 					mainService.UnHideGames();
+					_hideGamesTimer.Enabled = true;
+					_hideGamesTimer.Start();
 				}
 				catch (Exception e)
 				{
