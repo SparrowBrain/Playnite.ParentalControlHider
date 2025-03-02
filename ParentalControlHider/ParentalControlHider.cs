@@ -1,4 +1,5 @@
-﻿using ParentalControlHider.Services;
+﻿using ParentalControlHider.Infrastructure;
+using ParentalControlHider.Services;
 using ParentalControlHider.Services.Filters;
 using ParentalControlHider.Settings;
 using ParentalControlHider.Settings.MVVM;
@@ -22,7 +23,7 @@ namespace ParentalControlHider
 
 		public ParentalControlHider(IPlayniteAPI api) : base(api)
 		{
-			_settings = new ParentalControlHiderSettingsViewModel(this);
+			_settings = new ParentalControlHiderSettingsViewModel(this, new AgeRatingsAgeProvider());
 			Properties = new GenericPluginProperties
 			{
 				HasSettings = true
@@ -71,17 +72,7 @@ namespace ParentalControlHider
 			{
 				try
 				{
-					var pluginSettingsPersistence = new PluginSettingsPersistence(this);
-					var parentalHiderTagProvider = new ParentalHiderTagProvider(PlayniteApi);
-					var managedGamesFilter = new ManagedGamesFilter();
-					var tagsBlacklist = new TagsBlacklist();
-					var mainService = new MainService(
-						PlayniteApi,
-						pluginSettingsPersistence,
-						parentalHiderTagProvider,
-						managedGamesFilter,
-						tagsBlacklist);
-
+					var mainService = CreateMainService();
 					mainService.HideGames();
 				}
 				catch (Exception e)
@@ -100,17 +91,7 @@ namespace ParentalControlHider
 			{
 				try
 				{
-					var pluginSettingsPersistence = new PluginSettingsPersistence(this);
-					var parentalHiderTagProvider = new ParentalHiderTagProvider(PlayniteApi);
-					var managedGamesFilter = new ManagedGamesFilter();
-					var tagsBlacklist = new TagsBlacklist();
-					var mainService = new MainService(
-						PlayniteApi,
-						pluginSettingsPersistence,
-						parentalHiderTagProvider,
-						managedGamesFilter,
-						tagsBlacklist);
-
+					var mainService = CreateMainService();
 					mainService.UnHideGames();
 				}
 				catch (Exception e)
@@ -121,6 +102,24 @@ namespace ParentalControlHider
 							ResourceProvider.GetString("LOC_ParentalControlHider_Error_FailedToUnHide")));
 				}
 			});
+		}
+
+		private MainService CreateMainService()
+		{
+			var pluginSettingsPersistence = new PluginSettingsPersistence(this);
+			var parentalHiderTagProvider = new ParentalHiderTagProvider(PlayniteApi);
+			var managedGamesFilter = new ManagedGamesFilter();
+			var dateTimeProvider = new DateTimeProvider();
+			var ageRatingsFilter = new AgeRatingsFilter(dateTimeProvider);
+			var tagsBlacklist = new TagsBlacklist();
+			var gamesToHideFilter = new GamesToHideFilter(ageRatingsFilter, tagsBlacklist);
+			var mainService = new MainService(
+				PlayniteApi,
+				pluginSettingsPersistence,
+				parentalHiderTagProvider,
+				managedGamesFilter,
+				gamesToHideFilter);
+			return mainService;
 		}
 	}
 }

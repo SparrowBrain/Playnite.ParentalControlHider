@@ -48,11 +48,19 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\DateTimeProvider.cs" />
+    <Compile Include="Infrastructure\IDateTimeProvider.cs" />
     <Compile Include="ParentalControlHider.cs" />
+    <Compile Include="Services\AgeRatingsAgeProvider.cs" />
+    <Compile Include="Services\Filters\AgeRatingsFilter.cs" />
+    <Compile Include="Services\Filters\GamesToHideFilter.cs" />
+    <Compile Include="Services\Filters\IAgeRatingsFilter.cs" />
     <Compile Include="Services\Filters\IManagedGamesFilter.cs" />
     <Compile Include="Services\Filters\ITagsBlacklist.cs" />
     <Compile Include="Services\Filters\ManagedGamesFilter.cs" />
     <Compile Include="Services\Filters\TagsBlacklist.cs" />
+    <Compile Include="Services\IAgeRatingsAgeProvider.cs" />
+    <Compile Include="Services\Filters\IGamesToHideFilter.cs" />
     <Compile Include="Services\IParentalHiderTagProvider.cs" />
     <Compile Include="Services\MainService.cs" />
     <Compile Include="Services\ParentalHiderTagProvider.cs" />

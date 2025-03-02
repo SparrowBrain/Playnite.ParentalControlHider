@@ -22,37 +22,47 @@
     </UserControl.Resources>
     <TabControl>
         <TabItem Header="{DynamicResource LOC_ParentalControlHider_Settings_AgeRatings_Header}">
-            <ListView 
-                ItemsSource="{Binding AgeRatings}"
-                HorizontalContentAlignment="Stretch"
-                VerticalContentAlignment="Stretch">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn>
-                            <GridViewColumnHeader>
-                                <TextBlock Text="{DynamicResource LOC_ParentalControlHider_Settings_AgeRatings_IsUsed}" />
-                            </GridViewColumnHeader>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox IsChecked="{Binding IsUsed}">
-                                        <TextBlock Text="{Binding Name}" />
-                                    </CheckBox>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <GridViewColumnHeader>
-                                <TextBlock Text="{DynamicResource LOC_ParentalControlHider_Settings_AgeRatings_MinimumAge}" />
-                            </GridViewColumnHeader>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox Text="{Binding Age}" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_AgeRatings_Birthday}"></TextBlock>
+                    <TextBox Grid.Column="1" Text="{Binding Birthday}"></TextBox>
+                </Grid>
+                <ListView
+                    ItemsSource="{Binding AgeRatings}"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn>
+                                <GridViewColumnHeader>
+                                    <TextBlock Text="{DynamicResource LOC_ParentalControlHider_Settings_AgeRatings_IsUsed}" />
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding IsUsed}">
+                                            <TextBlock Text="{Binding Name}" />
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <GridViewColumnHeader>
+                                    <TextBlock Text="{DynamicResource LOC_ParentalControlHider_Settings_AgeRatings_MinimumAge}" />
+                                </GridViewColumnHeader>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Age}" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
         </TabItem>
         <TabItem Header="{DynamicResource LOC_ParentalControlHider_Settings_Tags_Header}">
             <Grid>

@@ -5,9 +5,11 @@
     <sys:String x:Key="LOC_ParentalControlHider_Error_FailedToUnHide">Failed to unhide games.</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_MainMenu_Hide">Hide Games</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_MainMenu_UnHide">Unhide Games</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_Birthday">Birthday</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_Header">Age Ratings</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_IsUsed">Is Used</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_MinimumAge">Minimum Age</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Error_Birthday">Birthday is not a valid date.</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_Tags_Allowed">Allowed</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_Tags_Blacklisted">Blacklisted</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_Tags_Filter">Filter</sys:String>

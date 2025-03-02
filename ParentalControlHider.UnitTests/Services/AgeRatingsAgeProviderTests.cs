@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoFixture.Xunit2;
+﻿using AutoFixture.Xunit2;
+using ParentalControlHider.Services;
 using Xunit;
 
 namespace ParentalControlHider.UnitTests.Services
@@ -11,6 +7,12 @@ namespace ParentalControlHider.UnitTests.Services
 	public class AgeRatingsAgeProviderTests
 	{
 		[Theory]
+		[InlineAutoData("ESRB EC", 0)]
+		[InlineAutoData("ESRB E", 0)]
+		[InlineAutoData("ESRB E10", 10)]
+		[InlineAutoData("ESRB T", 13)]
+		[InlineAutoData("ESRB M", 17)]
+		[InlineAutoData("ESRB AO", 18)]
 		[InlineAutoData("PEGI 3", 3)]
 		[InlineAutoData("PEGI 7", 7)]
 		[InlineAutoData("PEGI 12", 12)]
@@ -24,13 +26,16 @@ namespace ParentalControlHider.UnitTests.Services
 			// Assert
 			Assert.Equal(expected, result);
 		}
-	}
 
-	public class AgeRatingsAgeProvider
-	{
-		public int GetAge(string ageRating)
+		[Theory]
+		[AutoData]
+		public void GetAge_ReturnsZero_WhenNonConfiguredAge(string ageRating, AgeRatingsAgeProvider sut)
 		{
-			throw new NotImplementedException();
+			// Act
+			var result = sut.GetAge(ageRating);
+
+			// Assert
+			Assert.Equal(0, result);
 		}
 	}
 }

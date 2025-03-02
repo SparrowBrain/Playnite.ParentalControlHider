@@ -13,20 +13,20 @@ namespace ParentalControlHider.Services
 		private readonly IPluginSettingsPersistence _pluginSettingsPersistence;
 		private readonly IParentalHiderTagProvider _parentalHiderTagProvider;
 		private readonly IManagedGamesFilter _managedGamesFilter;
-		private readonly ITagsBlacklist _tagsBlacklist;
+		private readonly IGamesToHideFilter _gamesToHideFilter;
 
 		public MainService(
 			IPlayniteAPI api,
 			IPluginSettingsPersistence pluginSettingsPersistence,
 			IParentalHiderTagProvider parentalHiderTagProvider,
 			IManagedGamesFilter managedGamesFilter,
-			ITagsBlacklist tagsBlacklist)
+			IGamesToHideFilter gamesToHideFilter)
 		{
 			_api = api;
 			_pluginSettingsPersistence = pluginSettingsPersistence;
 			_parentalHiderTagProvider = parentalHiderTagProvider;
 			_managedGamesFilter = managedGamesFilter;
-			_tagsBlacklist = tagsBlacklist;
+			_gamesToHideFilter = gamesToHideFilter;
 		}
 
 		public void HideGames()
@@ -39,7 +39,7 @@ namespace ParentalControlHider.Services
 				foreach (var game in _api.Database.Games)
 				{
 					var isHidden = _managedGamesFilter.IsGameManagedByParentalHider(game, tag)
-								   && _tagsBlacklist.DoesItContainBlacklistedTag(game, settings);
+								   && _gamesToHideFilter.ShouldHideTheGame(game, settings);
 
 					game.Hidden = isHidden;
 

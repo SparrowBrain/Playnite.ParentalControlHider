@@ -1,6 +1,8 @@
-﻿using Playnite.SDK;
+﻿using ParentalControlHider.Services;
+using Playnite.SDK;
 using Playnite.SDK.Data;
 using Playnite.SDK.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,8 +12,8 @@ namespace ParentalControlHider.Settings.MVVM
 {
 	public class ParentalControlHiderSettingsViewModel : ObservableObject, ISettings
 	{
-		private readonly ILogger _logger = LogManager.GetLogger();
 		private readonly ParentalControlHider _plugin;
+		private readonly IAgeRatingsAgeProvider _ageRatingsAgeProvider;
 
 		private ParentalControlHiderSettings _editingClone;
 		private ParentalControlHiderSettings _settings;
@@ -22,13 +24,16 @@ namespace ParentalControlHider.Settings.MVVM
 		private Tag _selectedBlacklistedTag;
 		private string _allowedTagsFilter;
 		private string _blacklistedTagsFilter;
+		private string _birthday;
 
-		public ParentalControlHiderSettingsViewModel(ParentalControlHider plugin)
+		public ParentalControlHiderSettingsViewModel(ParentalControlHider plugin, IAgeRatingsAgeProvider ageRatingsAgeProvider)
 		{
 			_plugin = plugin;
+			_ageRatingsAgeProvider = ageRatingsAgeProvider;
 			var savedSettings = plugin.LoadPluginSettings<ParentalControlHiderSettings>();
 
 			Settings = savedSettings ?? new ParentalControlHiderSettings();
+			InitializeBirthday();
 			InitializeAgeRatings();
 			InitializeTags();
 		}
@@ -43,10 +48,20 @@ namespace ParentalControlHider.Settings.MVVM
 			}
 		}
 
+		public string Birthday
+		{
+			get => _birthday;
+			set => SetValue(ref _birthday, value);
+		}
+
 		public ObservableCollection<AgeRatingsViewModel> AgeRatings
 		{
 			get => _ageRatings;
-			set => SetValue(ref _ageRatings, value);
+			set
+			{
+				SetValue(ref _ageRatings, value);
+				OnPropertyChanged();
+			}
 		}
 
 		public ObservableCollection<Tag> AllowedTags
@@ -121,22 +136,31 @@ namespace ParentalControlHider.Settings.MVVM
 		public void CancelEdit()
 		{
 			Settings = _editingClone;
+			InitializeBirthday();
 			InitializeAgeRatings();
 			InitializeTags();
 		}
 
 		public void EndEdit()
 		{
+			Settings.Birthday = DateTime.Parse(Birthday);
 			_plugin.SavePluginSettings(Settings);
 		}
 
 		public bool VerifySettings(out List<string> errors)
 		{
-			// Code execute when user decides to confirm changes made since BeginEdit was called.
-			// Executed before EndEdit is called and EndEdit is not called if false is returned.
-			// List of errors is presented to user if verification fails.
 			errors = new List<string>();
-			return true;
+			if (!DateTime.TryParse(Birthday, out var birthday))
+			{
+				errors.Add(ResourceProvider.GetString("LOC_ParentalControlHider_Settings_Error_Birthday"));
+			}
+
+			return errors.Count == 0;
+		}
+
+		private void InitializeBirthday()
+		{
+			Birthday = Settings.Birthday.ToShortDateString();
 		}
 
 		private void InitializeAgeRatings()
@@ -146,9 +170,9 @@ namespace ParentalControlHider.Settings.MVVM
 
 			foreach (var rating in allRatings)
 			{
-				if (!Settings.AgeRatingsWithAge.TryGetValue(rating.Id, out var age))
+				if (!Settings.AgeRatingsWithAge.TryGetValue(rating.Id, out var age) || age == 0)
 				{
-					age = 0;
+					age = _ageRatingsAgeProvider.GetAge(rating.Name);
 				}
 
 				ratings.Add(new AgeRatingsViewModel(rating.Id, Settings.UsedAgeRatings.Contains(rating.Id), rating.Name, age, Settings));
