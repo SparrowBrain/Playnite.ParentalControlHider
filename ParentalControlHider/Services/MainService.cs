@@ -1,9 +1,9 @@
 ﻿using ParentalControlHider.Services.Filters;
 using ParentalControlHider.Settings;
 using Playnite.SDK;
+using Playnite.SDK.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ParentalControlHider.Services
 {
@@ -14,19 +14,22 @@ namespace ParentalControlHider.Services
 		private readonly IParentalHiderTagProvider _parentalHiderTagProvider;
 		private readonly IManagedGamesFilter _managedGamesFilter;
 		private readonly IGamesToHideFilter _gamesToHideFilter;
+		private readonly IGamesWhitelist _gamesWhitelist;
 
 		public MainService(
 			IPlayniteAPI api,
 			IPluginSettingsPersistence pluginSettingsPersistence,
 			IParentalHiderTagProvider parentalHiderTagProvider,
 			IManagedGamesFilter managedGamesFilter,
-			IGamesToHideFilter gamesToHideFilter)
+			IGamesToHideFilter gamesToHideFilter,
+			IGamesWhitelist gamesWhitelist)
 		{
 			_api = api;
 			_pluginSettingsPersistence = pluginSettingsPersistence;
 			_parentalHiderTagProvider = parentalHiderTagProvider;
 			_managedGamesFilter = managedGamesFilter;
 			_gamesToHideFilter = gamesToHideFilter;
+			_gamesWhitelist = gamesWhitelist;
 		}
 
 		public void HideGames()
@@ -38,9 +41,12 @@ namespace ParentalControlHider.Services
 			{
 				foreach (var game in _api.Database.Games)
 				{
-					var isHidden = _managedGamesFilter.IsGameManagedByParentalHider(game, tag)
-								   && _gamesToHideFilter.ShouldHideTheGame(game, settings);
+					if (!_managedGamesFilter.IsGameManagedByParentalHider(game, tag))
+					{
+						continue;
+					}
 
+					var isHidden = _gamesToHideFilter.ShouldHideTheGame(game, settings) && !_gamesWhitelist.IsOnWhitelist(game, settings);
 					game.Hidden = isHidden;
 
 					if (isHidden && !(game.TagIds?.Contains(tag.Id) ?? false))
@@ -78,6 +84,19 @@ namespace ParentalControlHider.Services
 					}
 				}
 			}
+		}
+	}
+
+	public interface IGamesWhitelist
+	{
+		bool IsOnWhitelist(Game game, ParentalControlHiderSettings settings);
+	}
+
+	public class GamesWhitelist : IGamesWhitelist
+	{
+		public bool IsOnWhitelist(Game game, ParentalControlHiderSettings settings)
+		{
+			return settings.GameWhitelist?.Contains(game.Id) ?? false;
 		}
 	}
 }

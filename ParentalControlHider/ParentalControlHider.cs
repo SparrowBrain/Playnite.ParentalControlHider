@@ -130,12 +130,14 @@ namespace ParentalControlHider
 			var ageRatingsFilter = new AgeRatingsFilter(dateTimeProvider);
 			var tagsBlacklist = new TagsBlacklist();
 			var gamesToHideFilter = new GamesToHideFilter(ageRatingsFilter, tagsBlacklist);
+			var gamesWhitelist = new GamesWhitelist();
 			var mainService = new MainService(
 				PlayniteApi,
 				pluginSettingsPersistence,
 				parentalHiderTagProvider,
 				managedGamesFilter,
-				gamesToHideFilter);
+				gamesToHideFilter,
+				gamesWhitelist);
 			return mainService;
 		}
 
