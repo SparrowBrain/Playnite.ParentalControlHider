@@ -5,6 +5,7 @@ using ParentalControlHider.Settings;
 using ParentalControlHider.Settings.MVVM;
 using Playnite.SDK;
 using Playnite.SDK.Events;
+using Playnite.SDK.Models;
 using Playnite.SDK.Plugins;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,22 @@ namespace ParentalControlHider
 				Description = ResourceProvider.GetString("LOC_ParentalControlHider_MainMenu_UnHide"),
 				MenuSection = "@Parental Control Hider",
 				Action = actionArgs => { UnHideGames(); }
+			};
+		}
+
+		public override IEnumerable<GameMenuItem> GetGameMenuItems(GetGameMenuItemsArgs args)
+		{
+			yield return new GameMenuItem
+			{
+				Description = ResourceProvider.GetString("LOC_ParentalControlHider_GameMenu_AddToWhitelist"),
+				Action = actionArgs => { AddGamesToWhitelist(actionArgs.Games); },
+				MenuSection = "Parental Control Hider"
+			};
+			yield return new GameMenuItem
+			{
+				Description = ResourceProvider.GetString("LOC_ParentalControlHider_GameMenu_RemoveFromWhitelist"),
+				Action = actionArgs => { RemoveGamesFromWhitelist(actionArgs.Games); },
+				MenuSection = "Parental Control Hider"
 			};
 		}
 
@@ -120,6 +137,29 @@ namespace ParentalControlHider
 				managedGamesFilter,
 				gamesToHideFilter);
 			return mainService;
+		}
+
+		private void AddGamesToWhitelist(List<Game> games)
+		{
+			foreach (var game in games)
+			{
+				_settings.Settings.GameWhitelist.Add(game.Id);
+			}
+
+			SavePluginSettings(_settings.Settings);
+		}
+
+		private void RemoveGamesFromWhitelist(List<Game> games)
+		{
+			foreach (var game in games)
+			{
+				if (_settings.Settings.GameWhitelist.Contains(game.Id))
+				{
+					_settings.Settings.GameWhitelist.Remove(game.Id);
+				}
+			}
+
+			SavePluginSettings(_settings.Settings);
 		}
 	}
 }

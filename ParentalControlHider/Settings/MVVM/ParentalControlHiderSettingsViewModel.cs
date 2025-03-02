@@ -166,7 +166,7 @@ namespace ParentalControlHider.Settings.MVVM
 		private void InitializeAgeRatings()
 		{
 			var ratings = new List<AgeRatingsViewModel>();
-			var allRatings = _plugin.PlayniteApi.Database.AgeRatings.ToList();
+			var allRatings = _plugin.PlayniteApi.Database.AgeRatings?.ToList() ?? new List<AgeRating>();
 
 			foreach (var rating in allRatings)
 			{

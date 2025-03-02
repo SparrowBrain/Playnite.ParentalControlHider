@@ -16,6 +16,8 @@ namespace ParentalControlHider.Settings
 
 		public HashSet<Guid> UsedAgeRatings { get; set; } = new HashSet<Guid>();
 
-		public List<Guid> BlacklistedTagIds { get; set; } = new List<Guid>();
+		public HashSet<Guid> BlacklistedTagIds { get; set; } = new HashSet<Guid>();
+
+		public HashSet<Guid> GameWhitelist { get; set; } = new HashSet<Guid>();
 	}
 }

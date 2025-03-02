@@ -4,7 +4,7 @@ namespace ParentalControlHider.Services
 {
 	public class AgeRatingsAgeProvider : IAgeRatingsAgeProvider
 	{
-		private Dictionary<string, int> _ageRatings = new Dictionary<string, int>
+		private readonly Dictionary<string, int> _ageRatings = new Dictionary<string, int>
 		{
 			{ "PEGI 3", 3 },
 			{ "PEGI 7", 7 },

@@ -3,6 +3,8 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="LOC_ParentalControlHider_Error_FailedToHide">Failed to hide games.</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Error_FailedToUnHide">Failed to unhide games.</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_GameMenu_AddToWhitelist">Add to Whitelist</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_GameMenu_RemoveFromWhitelist">Remove from Whitelist</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_MainMenu_Hide">Hide Games</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_MainMenu_UnHide">Unhide Games</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_Birthday">Birthday</sys:String>
