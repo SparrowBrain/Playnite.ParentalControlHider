@@ -90,12 +90,12 @@ namespace ParentalControlHider
 		{
 			_hideGamesTimer.Enabled = false;
 			_hideGamesTimer.Stop();
-			Task.Run(() =>
+			Task.Run(async () =>
 			{
 				try
 				{
 					var mainService = CreateMainService();
-					mainService.HideGames();
+					await mainService.HideGames();
 				}
 				catch (Exception e)
 				{
@@ -109,12 +109,12 @@ namespace ParentalControlHider
 
 		private void UnHideGames()
 		{
-			Task.Run(() =>
+			Task.Run(async () =>
 			{
 				try
 				{
 					var mainService = CreateMainService();
-					mainService.UnHideGames();
+					await mainService.UnHideGames();
 					_hideGamesTimer.Enabled = true;
 					_hideGamesTimer.Start();
 				}

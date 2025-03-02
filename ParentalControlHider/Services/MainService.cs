@@ -4,11 +4,15 @@ using Playnite.SDK;
 using Playnite.SDK.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ParentalControlHider.Services
 {
 	public class MainService
 	{
+		private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
+
 		private readonly IPlayniteAPI _api;
 		private readonly IPluginSettingsPersistence _pluginSettingsPersistence;
 		private readonly IParentalHiderTagProvider _parentalHiderTagProvider;
@@ -32,18 +36,19 @@ namespace ParentalControlHider.Services
 			_gamesWhitelist = gamesWhitelist;
 		}
 
-		public void HideGames()
+		public async Task HideGames()
 		{
+			await _semaphore.WaitAsync();
 			var tag = _parentalHiderTagProvider.GetParentalHiderTag();
 			var settings = _pluginSettingsPersistence.LoadPluginSettings<ParentalControlHiderSettings>();
 
 			using (var _ = _api.Database.BufferedUpdate())
 			{
-				foreach (var game in _api.Database.Games)
+				Parallel.ForEach(_api.Database.Games, game =>
 				{
 					if (!_managedGamesFilter.IsGameManagedByParentalHider(game, tag))
 					{
-						continue;
+						return;
 					}
 
 					var isHidden = _gamesToHideFilter.ShouldHideTheGame(game, settings) && !_gamesWhitelist.IsOnWhitelist(game, settings);
@@ -64,17 +69,18 @@ namespace ParentalControlHider.Services
 					}
 
 					_api.Database.Games.Update(game);
-				}
+				});
 			}
 		}
 
-		public void UnHideGames()
+		public async Task UnHideGames()
 		{
+			await _semaphore.WaitAsync();
 			var tag = _parentalHiderTagProvider.GetParentalHiderTag();
 
 			using (var _ = _api.Database.BufferedUpdate())
 			{
-				foreach (var game in _api.Database.Games)
+				Parallel.ForEach(_api.Database.Games, game =>
 				{
 					if (game.Hidden && (game.TagIds?.Contains(tag.Id) ?? false))
 					{
@@ -82,7 +88,7 @@ namespace ParentalControlHider.Services
 						game.TagIds.Remove(tag.Id);
 						_api.Database.Games.Update(game);
 					}
-				}
+				});
 			}
 		}
 	}
