@@ -76,8 +76,8 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_Tags_Allowed}"></TextBlock>
-                <TextBlock Grid.Column="2" Grid.Row="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_Tags_Blacklisted}"></TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_Allowed}"></TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_Blacklisted}"></TextBlock>
                 <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding AllowedTags}" SelectedItem="{Binding SelectedAllowedTag}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -108,7 +108,7 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_Tags_Filter}"></TextBlock>
+                    <TextBlock Grid.Column="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_Filter}"></TextBlock>
                     <TextBox Grid.Column="1" Text="{Binding AllowedTagsFilter}"></TextBox>
                 </Grid>
                 <Grid Grid.Column="2" Grid.Row="2">
@@ -116,8 +116,65 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_Tags_Filter}"></TextBlock>
+                    <TextBlock Grid.Column="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_Filter}"></TextBlock>
                     <TextBox Grid.Column="1" Text="{Binding BlacklistedTagsFilter}"></TextBox>
+                </Grid>
+            </Grid>
+        </TabItem>
+        <TabItem Header="{DynamicResource LOC_ParentalControlHider_Settings_Genres_Header}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="75"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_Allowed}"></TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_Blacklisted}"></TextBlock>
+                <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding AllowedGenres}" SelectedItem="{Binding SelectedAllowedGenre}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Grid Column="1" Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="1" Content="&gt;" Command="{Binding BlacklistGenreCommand}"></Button>
+                    <Button Grid.Row="3" Content="&lt;" Command="{Binding AllowGenreCommand}"></Button>
+                </Grid>
+                <ListBox Grid.Column="2" Grid.Row="1" ItemsSource="{Binding BlacklistedGenres}" SelectedItem="{Binding SelectedBlacklistedGenre}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"></TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Grid Grid.Column="0" Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_Filter}"></TextBlock>
+                    <TextBox Grid.Column="1" Text="{Binding AllowedGenresFilter}"></TextBox>
+                </Grid>
+                <Grid Grid.Column="2" Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_Filter}"></TextBlock>
+                    <TextBox Grid.Column="1" Text="{Binding BlacklistedGenresFilter}"></TextBox>
                 </Grid>
             </Grid>
         </TabItem>

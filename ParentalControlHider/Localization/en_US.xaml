@@ -11,9 +11,10 @@
     <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_Header">Age Ratings</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_IsUsed">Is Used</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_MinimumAge">Minimum Age</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Allowed">Allowed</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Blacklisted">Blacklisted</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_Error_Birthday">Birthday is not a valid date.</sys:String>
-    <sys:String x:Key="LOC_ParentalControlHider_Settings_Tags_Allowed">Allowed</sys:String>
-    <sys:String x:Key="LOC_ParentalControlHider_Settings_Tags_Blacklisted">Blacklisted</sys:String>
-    <sys:String x:Key="LOC_ParentalControlHider_Settings_Tags_Filter">Filter</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Filter">Filter</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_Tags_Header">Tags</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Genres_Header">Genres</sys:String>
 </ResourceDictionary>

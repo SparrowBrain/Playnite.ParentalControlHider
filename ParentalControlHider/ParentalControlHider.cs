@@ -136,7 +136,8 @@ namespace ParentalControlHider
 			var dateTimeProvider = new DateTimeProvider();
 			var ageRatingsFilter = new AgeRatingsFilter(dateTimeProvider);
 			var tagsBlacklist = new TagsBlacklist();
-			var gamesToHideFilter = new GamesToHideFilter(ageRatingsFilter, tagsBlacklist);
+			var genresBlacklist = new GenresBlacklist();
+			var gamesToHideFilter = new GamesToHideFilter(ageRatingsFilter, tagsBlacklist, genresBlacklist);
 			var gamesWhitelist = new GamesWhitelist();
 			var mainService = new MainService(
 				PlayniteApi,

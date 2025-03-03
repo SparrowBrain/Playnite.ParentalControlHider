@@ -17,6 +17,7 @@ namespace ParentalControlHider.Settings.MVVM
 
 		private ParentalControlHiderSettings _editingClone;
 		private ParentalControlHiderSettings _settings;
+		private string _birthday;
 		private ObservableCollection<AgeRatingsViewModel> _ageRatings = new ObservableCollection<AgeRatingsViewModel>();
 		private ObservableCollection<Tag> _allowedTags = new ObservableCollection<Tag>();
 		private ObservableCollection<Tag> _blacklistedTags = new ObservableCollection<Tag>();
@@ -24,7 +25,12 @@ namespace ParentalControlHider.Settings.MVVM
 		private Tag _selectedBlacklistedTag;
 		private string _allowedTagsFilter;
 		private string _blacklistedTagsFilter;
-		private string _birthday;
+		private ObservableCollection<Genre> _allowedGenres = new ObservableCollection<Genre>();
+		private ObservableCollection<Genre> _blacklistedGenres = new ObservableCollection<Genre>();
+		private Genre _selectedAllowedGenre;
+		private Genre _selectedBlacklistedGenre;
+		private string _allowedGenresFilter;
+		private string _blacklistedGenresFilter;
 
 		public ParentalControlHiderSettingsViewModel(ParentalControlHider plugin, IAgeRatingsAgeProvider ageRatingsAgeProvider)
 		{
@@ -36,6 +42,7 @@ namespace ParentalControlHider.Settings.MVVM
 			InitializeBirthday();
 			InitializeAgeRatings();
 			InitializeTags();
+			InitializeGenres();
 		}
 
 		public ParentalControlHiderSettings Settings
@@ -128,6 +135,70 @@ namespace ParentalControlHider.Settings.MVVM
 			}
 		});
 
+		public ObservableCollection<Genre> AllowedGenres
+		{
+			get => _allowedGenres;
+			set => SetValue(ref _allowedGenres, value);
+		}
+
+		public Genre SelectedAllowedGenre
+		{
+			get => _selectedAllowedGenre;
+			set => SetValue(ref _selectedAllowedGenre, value);
+		}
+
+		public string AllowedGenresFilter
+		{
+			get => _allowedGenresFilter;
+			set
+			{
+				SetValue(ref _allowedGenresFilter, value);
+				InitializeGenres();
+			}
+		}
+
+		public ObservableCollection<Genre> BlacklistedGenres
+		{
+			get => _blacklistedGenres;
+			set => SetValue(ref _blacklistedGenres, value);
+		}
+
+		public Genre SelectedBlacklistedGenre
+		{
+			get => _selectedBlacklistedGenre;
+			set => SetValue(ref _selectedBlacklistedGenre, value);
+		}
+
+		public string BlacklistedGenresFilter
+		{
+			get => _blacklistedGenresFilter;
+			set
+			{
+				SetValue(ref _blacklistedGenresFilter, value);
+				InitializeGenres();
+			}
+		}
+
+		public ICommand BlacklistGenreCommand => new RelayCommand(() =>
+		{
+			if (SelectedAllowedGenre != null)
+			{
+				Settings.BlacklistedGenreIds.Add(SelectedAllowedGenre.Id);
+				InitializeGenres();
+				SelectedAllowedGenre = null;
+			}
+		});
+
+		public ICommand AllowGenreCommand => new RelayCommand(() =>
+		{
+			if (SelectedBlacklistedGenre != null)
+			{
+				Settings.BlacklistedGenreIds.Remove(SelectedBlacklistedGenre.Id);
+				InitializeGenres();
+				SelectedBlacklistedGenre = null;
+			}
+		});
+
 		public void BeginEdit()
 		{
 			_editingClone = Serialization.GetClone(Settings);
@@ -139,6 +210,7 @@ namespace ParentalControlHider.Settings.MVVM
 			InitializeBirthday();
 			InitializeAgeRatings();
 			InitializeTags();
+			InitializeGenres();
 		}
 
 		public void EndEdit()
@@ -150,7 +222,7 @@ namespace ParentalControlHider.Settings.MVVM
 		public bool VerifySettings(out List<string> errors)
 		{
 			errors = new List<string>();
-			if (!DateTime.TryParse(Birthday, out var birthday))
+			if (!DateTime.TryParse(Birthday, out _))
 			{
 				errors.Add(ResourceProvider.GetString("LOC_ParentalControlHider_Settings_Error_Birthday"));
 			}
@@ -193,6 +265,22 @@ namespace ParentalControlHider.Settings.MVVM
 
 			AllowedTags = allTags.Where(x => !Settings.BlacklistedTagIds.Contains(x.Id)
 					&& (string.IsNullOrEmpty(AllowedTagsFilter) || x.Name.ToLower().Contains(AllowedTagsFilter.ToLower())))
+				.OrderBy(x => x.Name)
+				.ToObservable();
+		}
+
+		private void InitializeGenres()
+		{
+			var allGenres = _plugin.PlayniteApi.Database.Genres.ToList();
+
+			BlacklistedGenres = allGenres
+				.Where(x => Settings.BlacklistedGenreIds.Contains(x.Id)
+							&& (string.IsNullOrEmpty(BlacklistedGenresFilter) || x.Name.ToLower().Contains(BlacklistedGenresFilter.ToLower())))
+				.OrderBy(x => x.Name)
+				.ToObservable();
+
+			AllowedGenres = allGenres.Where(x => !Settings.BlacklistedGenreIds.Contains(x.Id)
+												 && (string.IsNullOrEmpty(AllowedGenresFilter) || x.Name.ToLower().Contains(AllowedGenresFilter.ToLower())))
 				.OrderBy(x => x.Name)
 				.ToObservable();
 		}

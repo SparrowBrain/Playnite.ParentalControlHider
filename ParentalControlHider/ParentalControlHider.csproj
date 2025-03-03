@@ -54,7 +54,9 @@
     <Compile Include="Services\AgeRatingsAgeProvider.cs" />
     <Compile Include="Services\Filters\AgeRatingsFilter.cs" />
     <Compile Include="Services\Filters\GamesToHideFilter.cs" />
+    <Compile Include="Services\Filters\GenresBlacklist.cs" />
     <Compile Include="Services\Filters\IAgeRatingsFilter.cs" />
+    <Compile Include="Services\Filters\IGenresBlacklist.cs" />
     <Compile Include="Services\Filters\IManagedGamesFilter.cs" />
     <Compile Include="Services\Filters\ITagsBlacklist.cs" />
     <Compile Include="Services\Filters\ManagedGamesFilter.cs" />
