@@ -22,8 +22,12 @@
     </UserControl.Resources>
     <TabControl>
         <TabItem Header="{DynamicResource LOC_ParentalControlHider_Settings_AgeRatings_Header}">
-            <StackPanel>
-                <Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
@@ -31,38 +35,40 @@
                     <TextBlock Grid.Column="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_AgeRatings_Birthday}"></TextBlock>
                     <TextBox Grid.Column="1" Text="{Binding Birthday}"></TextBox>
                 </Grid>
-                <ListView
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <ListView
                     ItemsSource="{Binding AgeRatings}"
                     HorizontalContentAlignment="Stretch"
                     VerticalContentAlignment="Stretch">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn>
-                                <GridViewColumnHeader>
-                                    <TextBlock Text="{DynamicResource LOC_ParentalControlHider_Settings_AgeRatings_IsUsed}" />
-                                </GridViewColumnHeader>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <CheckBox IsChecked="{Binding IsUsed}">
-                                            <TextBlock Text="{Binding Name}" />
-                                        </CheckBox>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn>
-                                <GridViewColumnHeader>
-                                    <TextBlock Text="{DynamicResource LOC_ParentalControlHider_Settings_AgeRatings_MinimumAge}" />
-                                </GridViewColumnHeader>
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding Age}" />
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </StackPanel>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn>
+                                    <GridViewColumnHeader>
+                                        <TextBlock Text="{DynamicResource LOC_ParentalControlHider_Settings_AgeRatings_IsUsed}" />
+                                    </GridViewColumnHeader>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding IsUsed}">
+                                                <TextBlock Text="{Binding Name}" />
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn>
+                                    <GridViewColumnHeader>
+                                        <TextBlock Text="{DynamicResource LOC_ParentalControlHider_Settings_AgeRatings_MinimumAge}" />
+                                    </GridViewColumnHeader>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Age}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>
+            </Grid>
         </TabItem>
         <TabItem Header="{DynamicResource LOC_ParentalControlHider_Settings_Tags_Header}">
             <Grid>
@@ -107,17 +113,21 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_Filter}"></TextBlock>
-                    <TextBox Grid.Column="1" Text="{Binding AllowedTagsFilter}"></TextBox>
+                    <TextBox Grid.Column="1" Text="{Binding AllowedTagsFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <Button Grid.Column="2" Content="X" Command="{Binding ClearAllowedTagsFilter}"></Button>
                 </Grid>
                 <Grid Grid.Column="2" Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_Filter}"></TextBlock>
-                    <TextBox Grid.Column="1" Text="{Binding BlacklistedTagsFilter}"></TextBox>
+                    <TextBox Grid.Column="1" Text="{Binding BlacklistedTagsFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <Button Grid.Column="2" Content="X" Command="{Binding ClearBlacklistedTagsFilter}"></Button>
                 </Grid>
             </Grid>
         </TabItem>
@@ -164,17 +174,21 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_Filter}"></TextBlock>
-                    <TextBox Grid.Column="1" Text="{Binding AllowedGenresFilter}"></TextBox>
+                    <TextBox Grid.Column="1" Text="{Binding AllowedGenresFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <Button Grid.Column="2" Content="X" Command="{Binding ClearAllowedGenresFilter}"></Button>
                 </Grid>
                 <Grid Grid.Column="2" Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_Filter}"></TextBlock>
-                    <TextBox Grid.Column="1" Text="{Binding BlacklistedGenresFilter}"></TextBox>
+                    <TextBox Grid.Column="1" Text="{Binding BlacklistedGenresFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <Button Grid.Column="2" Content="X" Command="{Binding ClearBlacklistedGenresFilter}"></Button>
                 </Grid>
             </Grid>
         </TabItem>

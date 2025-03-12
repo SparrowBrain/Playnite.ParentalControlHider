@@ -93,6 +93,8 @@ namespace ParentalControlHider.Settings.MVVM
 			}
 		}
 
+		public ICommand ClearAllowedTagsFilter => new RelayCommand(() => AllowedTagsFilter = string.Empty);
+
 		public ObservableCollection<Tag> BlacklistedTags
 		{
 			get => _blacklistedTags;
@@ -114,6 +116,8 @@ namespace ParentalControlHider.Settings.MVVM
 				InitializeTags();
 			}
 		}
+
+		public ICommand ClearBlacklistedTagsFilter => new RelayCommand(() => BlacklistedTagsFilter = string.Empty);
 
 		public ICommand BlacklistTagCommand => new RelayCommand(() =>
 		{
@@ -157,6 +161,8 @@ namespace ParentalControlHider.Settings.MVVM
 			}
 		}
 
+		public ICommand ClearAllowedGenresFilter => new RelayCommand(() => AllowedGenresFilter = string.Empty);
+
 		public ObservableCollection<Genre> BlacklistedGenres
 		{
 			get => _blacklistedGenres;
@@ -178,6 +184,8 @@ namespace ParentalControlHider.Settings.MVVM
 				InitializeGenres();
 			}
 		}
+
+		public ICommand ClearBlacklistedGenresFilter => new RelayCommand(() => BlacklistedGenresFilter = string.Empty);
 
 		public ICommand BlacklistGenreCommand => new RelayCommand(() =>
 		{
