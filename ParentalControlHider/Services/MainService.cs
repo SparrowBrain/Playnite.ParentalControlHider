@@ -73,7 +73,7 @@ namespace ParentalControlHider.Services
 			}
 		}
 
-		public async Task UnHideGames()
+		public async Task UnhideGames()
 		{
 			await _semaphore.WaitAsync();
 			var tag = _parentalHiderTagProvider.GetParentalHiderTag();
@@ -102,7 +102,7 @@ namespace ParentalControlHider.Services
 	{
 		public bool IsOnWhitelist(Game game, ParentalControlHiderSettings settings)
 		{
-			return settings.GameWhitelist?.Contains(game.Id) ?? false;
+			return settings.WhitelistedGameIds?.Contains(game.Id) ?? false;
 		}
 	}
 }

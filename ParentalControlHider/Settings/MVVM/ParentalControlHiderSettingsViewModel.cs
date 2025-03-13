@@ -31,6 +31,7 @@ namespace ParentalControlHider.Settings.MVVM
 		private Genre _selectedBlacklistedGenre;
 		private string _allowedGenresFilter;
 		private string _blacklistedGenresFilter;
+		private ObservableCollection<WhitelistedGameViewModel> _whitelistedGames = new ObservableCollection<WhitelistedGameViewModel>();
 
 		public ParentalControlHiderSettingsViewModel(ParentalControlHider plugin, IAgeRatingsAgeProvider ageRatingsAgeProvider)
 		{
@@ -51,6 +52,7 @@ namespace ParentalControlHider.Settings.MVVM
 				InitializeAgeRatings();
 				InitializeTags();
 				InitializeGenres();
+				InitializeGames();
 				OnPropertyChanged();
 			}
 		}
@@ -203,6 +205,12 @@ namespace ParentalControlHider.Settings.MVVM
 			}
 		});
 
+		public ObservableCollection<WhitelistedGameViewModel> WhitelistedGames
+		{
+			get => _whitelistedGames;
+			set => SetValue(ref _whitelistedGames, value);
+		}
+
 		public void BeginEdit()
 		{
 			_editingClone = Serialization.GetClone(Settings);
@@ -228,6 +236,14 @@ namespace ParentalControlHider.Settings.MVVM
 			}
 
 			return errors.Count == 0;
+		}
+
+		public void InitializeGames()
+		{
+			WhitelistedGames = _plugin.PlayniteApi.Database.Games
+				.Where(x => Settings.WhitelistedGameIds.Contains(x.Id))
+				.Select(x => new WhitelistedGameViewModel(x, this, _plugin.PlayniteApi))
+				.ToObservable();
 		}
 
 		private void InitializeBirthday()

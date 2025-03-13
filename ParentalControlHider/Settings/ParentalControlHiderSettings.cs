@@ -20,6 +20,7 @@ namespace ParentalControlHider.Settings
 
 		public HashSet<Guid> BlacklistedGenreIds { get; set; } = new HashSet<Guid>();
 
-		public HashSet<Guid> GameWhitelist { get; set; } = new HashSet<Guid>();
+		public HashSet<Guid> WhitelistedGameIds { get; set; } = new HashSet<Guid>();
+
 	}
 }

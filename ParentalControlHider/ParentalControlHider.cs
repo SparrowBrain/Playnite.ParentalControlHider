@@ -53,9 +53,9 @@ namespace ParentalControlHider
 			};
 			yield return new MainMenuItem
 			{
-				Description = ResourceProvider.GetString("LOC_ParentalControlHider_MainMenu_UnHide"),
+				Description = ResourceProvider.GetString("LOC_ParentalControlHider_MainMenu_Unhide"),
 				MenuSection = "@Parental Control Hider",
-				Action = actionArgs => { UnHideGames(); }
+				Action = actionArgs => { UnhideGames(); }
 			};
 		}
 
@@ -108,23 +108,23 @@ namespace ParentalControlHider
 			});
 		}
 
-		private void UnHideGames()
+		private void UnhideGames()
 		{
 			Task.Run(async () =>
 			{
 				try
 				{
 					var mainService = CreateMainService();
-					await mainService.UnHideGames();
+					await mainService.UnhideGames();
 					_hideGamesTimer.Enabled = true;
 					_hideGamesTimer.Start();
 				}
 				catch (Exception e)
 				{
-					Logger.Error(e, "Failed to unhide games.");
+					Logger.Error(e, "Failed to Unhide games.");
 					PlayniteApi.MainView.UIDispatcher.Invoke(() =>
 						PlayniteApi.Dialogs.ShowErrorMessage(
-							ResourceProvider.GetString("LOC_ParentalControlHider_Error_FailedToUnHide")));
+							ResourceProvider.GetString("LOC_ParentalControlHider_Error_FailedToUnhide")));
 				}
 			});
 		}
@@ -155,10 +155,11 @@ namespace ParentalControlHider
 			var settingsViewModel = GetExtensionSettings();
 			foreach (var game in games)
 			{
-				settingsViewModel.Settings.GameWhitelist.Add(game.Id);
+				settingsViewModel.Settings.WhitelistedGameIds.Add(game.Id);
 			}
 
 			SavePluginSettings(settingsViewModel.Settings);
+			settingsViewModel.InitializeGames();
 		}
 
 		private void RemoveGamesFromWhitelist(List<Game> games)
@@ -166,13 +167,14 @@ namespace ParentalControlHider
 			var settingsViewModel = GetExtensionSettings();
 			foreach (var game in games)
 			{
-				if (settingsViewModel.Settings.GameWhitelist.Contains(game.Id))
+				if (settingsViewModel.Settings.WhitelistedGameIds.Contains(game.Id))
 				{
-					settingsViewModel.Settings.GameWhitelist.Remove(game.Id);
+					settingsViewModel.Settings.WhitelistedGameIds.Remove(game.Id);
 				}
 			}
 
 			SavePluginSettings(settingsViewModel.Settings);
+			settingsViewModel.InitializeGames();
 		}
 	}
 }
