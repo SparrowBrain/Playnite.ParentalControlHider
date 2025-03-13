@@ -39,7 +39,7 @@ namespace ParentalControlHider.Settings.MVVM
 			_ageRatingsAgeProvider = ageRatingsAgeProvider;
 			var savedSettings = plugin.LoadPluginSettings<ParentalControlHiderSettings>();
 
-			Settings = savedSettings ?? new ParentalControlHiderSettings();
+			Settings = savedSettings ?? ParentalControlHiderSettings.Default;
 		}
 
 		public ParentalControlHiderSettings Settings

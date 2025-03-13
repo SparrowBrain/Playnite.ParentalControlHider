@@ -18,7 +18,7 @@ namespace ParentalControlHider
 	public class ParentalControlHider : GenericPlugin
 	{
 		private static readonly ILogger Logger = LogManager.GetLogger();
-		private readonly Timer _hideGamesTimer = new Timer(TimeSpan.FromMinutes(30).TotalMilliseconds);
+		private readonly Timer _hideGamesTimer = new Timer();
 		private ParentalControlHiderSettingsViewModel _settings;
 
 		public override Guid Id { get; } = Guid.Parse("134725de-cfcb-4474-849b-5d9c52babb75");
@@ -35,12 +35,18 @@ namespace ParentalControlHider
 
 		public override void OnApplicationStarted(OnApplicationStartedEventArgs args)
 		{
-			HideGames();
+			if (GetExtensionSettings().Settings.RunOnApplicationStarted)
+			{
+				HideGames();
+			}
 		}
 
 		public override void OnLibraryUpdated(OnLibraryUpdatedEventArgs args)
 		{
-			HideGames();
+			if (GetExtensionSettings().Settings.RunOnLibraryUpdated)
+			{
+				HideGames();
+			}
 		}
 
 		public override IEnumerable<MainMenuItem> GetMainMenuItems(GetMainMenuItemsArgs args)
@@ -116,8 +122,13 @@ namespace ParentalControlHider
 				{
 					var mainService = CreateMainService();
 					await mainService.UnhideGames();
-					_hideGamesTimer.Enabled = true;
-					_hideGamesTimer.Start();
+					var settings = GetExtensionSettings().Settings;
+					if (settings.RunAfterUnhidden)
+					{
+						_hideGamesTimer.Interval = TimeSpan.FromMinutes(settings.MinutesToRunAfterUnhidden).TotalMilliseconds;
+						_hideGamesTimer.Enabled = true;
+						_hideGamesTimer.Start();
+					}
 				}
 				catch (Exception e)
 				{
