@@ -18,14 +18,13 @@ namespace ParentalControlHider
 	public class ParentalControlHider : GenericPlugin
 	{
 		private static readonly ILogger Logger = LogManager.GetLogger();
-		private readonly ParentalControlHiderSettingsViewModel _settings;
 		private readonly Timer _hideGamesTimer = new Timer(TimeSpan.FromMinutes(30).TotalMilliseconds);
+		private ParentalControlHiderSettingsViewModel _settings;
 
 		public override Guid Id { get; } = Guid.Parse("134725de-cfcb-4474-849b-5d9c52babb75");
 
 		public ParentalControlHider(IPlayniteAPI api) : base(api)
 		{
-			_settings = new ParentalControlHiderSettingsViewModel(this, new AgeRatingsAgeProvider());
 			Properties = new GenericPluginProperties
 			{
 				HasSettings = true
@@ -78,13 +77,15 @@ namespace ParentalControlHider
 
 		public override ISettings GetSettings(bool firstRunSettings)
 		{
-			return _settings;
+			return _settings ?? (_settings = new ParentalControlHiderSettingsViewModel(this, new AgeRatingsAgeProvider()));
 		}
 
 		public override UserControl GetSettingsView(bool firstRunSettings)
 		{
 			return new ParentalControlHiderSettingsView();
 		}
+
+		private ParentalControlHiderSettingsViewModel GetExtensionSettings() => GetSettings(false) as ParentalControlHiderSettingsViewModel;
 
 		private void HideGames()
 		{
@@ -151,25 +152,27 @@ namespace ParentalControlHider
 
 		private void AddGamesToWhitelist(List<Game> games)
 		{
+			var settingsViewModel = GetExtensionSettings();
 			foreach (var game in games)
 			{
-				_settings.Settings.GameWhitelist.Add(game.Id);
+				settingsViewModel.Settings.GameWhitelist.Add(game.Id);
 			}
 
-			SavePluginSettings(_settings.Settings);
+			SavePluginSettings(settingsViewModel.Settings);
 		}
 
 		private void RemoveGamesFromWhitelist(List<Game> games)
 		{
+			var settingsViewModel = GetExtensionSettings();
 			foreach (var game in games)
 			{
-				if (_settings.Settings.GameWhitelist.Contains(game.Id))
+				if (settingsViewModel.Settings.GameWhitelist.Contains(game.Id))
 				{
-					_settings.Settings.GameWhitelist.Remove(game.Id);
+					settingsViewModel.Settings.GameWhitelist.Remove(game.Id);
 				}
 			}
 
-			SavePluginSettings(_settings.Settings);
+			SavePluginSettings(settingsViewModel.Settings);
 		}
 	}
 }

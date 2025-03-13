@@ -39,10 +39,6 @@ namespace ParentalControlHider.Settings.MVVM
 			var savedSettings = plugin.LoadPluginSettings<ParentalControlHiderSettings>();
 
 			Settings = savedSettings ?? new ParentalControlHiderSettings();
-			InitializeBirthday();
-			InitializeAgeRatings();
-			InitializeTags();
-			InitializeGenres();
 		}
 
 		public ParentalControlHiderSettings Settings
@@ -51,6 +47,10 @@ namespace ParentalControlHider.Settings.MVVM
 			set
 			{
 				_settings = value;
+				InitializeBirthday();
+				InitializeAgeRatings();
+				InitializeTags();
+				InitializeGenres();
 				OnPropertyChanged();
 			}
 		}
@@ -64,11 +64,7 @@ namespace ParentalControlHider.Settings.MVVM
 		public ObservableCollection<AgeRatingsViewModel> AgeRatings
 		{
 			get => _ageRatings;
-			set
-			{
-				SetValue(ref _ageRatings, value);
-				OnPropertyChanged();
-			}
+			set => SetValue(ref _ageRatings, value);
 		}
 
 		public ObservableCollection<Tag> AllowedTags
@@ -215,10 +211,6 @@ namespace ParentalControlHider.Settings.MVVM
 		public void CancelEdit()
 		{
 			Settings = _editingClone;
-			InitializeBirthday();
-			InitializeAgeRatings();
-			InitializeTags();
-			InitializeGenres();
 		}
 
 		public void EndEdit()
