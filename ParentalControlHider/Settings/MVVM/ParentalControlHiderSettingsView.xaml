@@ -19,8 +19,26 @@
         <Style TargetType="RadioButton" BasedOn="{StaticResource {x:Type RadioButton}}">
             <Setter Property="Margin" Value="0,2.5,0,2.5"></Setter>
         </Style>
+        <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}">
+            <Setter Property="Margin" Value="0,2.5,0,2.5"></Setter>
+        </Style>
     </UserControl.Resources>
     <TabControl>
+        <TabItem Header="{DynamicResource LOC_ParentalControlHider_Settings_General_Header}">
+            <StackPanel>
+                <CheckBox IsChecked="{Binding Settings.RunOnApplicationStarted}" Content="{DynamicResource LOC_ParentalControlHider_Settings_RunOnApplicationStarted}"></CheckBox>
+                <CheckBox IsChecked="{Binding Settings.RunOnLibraryUpdated}" Content="{DynamicResource LOC_ParentalControlHider_Settings_RunOnLibraryUpdated}"></CheckBox>
+                <CheckBox IsChecked="{Binding Settings.RunAfterUnhidden}" Content="{DynamicResource LOC_ParentalControlHider_Settings_RunAfterUnhidden}"></CheckBox>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="{DynamicResource LOC_ParentalControlHider_Settings_MinutesToRunAfterUnhidden}"></TextBlock>
+                    <TextBox Grid.Column="1" Text="{Binding Settings.MinutesToRunAfterUnhidden}" IsEnabled="{Binding Settings.RunAfterUnhidden, Mode=OneWay}"></TextBox>
+                </Grid>
+            </StackPanel>
+        </TabItem>
         <TabItem Header="{DynamicResource LOC_ParentalControlHider_Settings_AgeRatings_Header}">
             <Grid>
                 <Grid.RowDefinitions>

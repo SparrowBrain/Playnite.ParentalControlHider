@@ -5,6 +5,7 @@
     <sys:String x:Key="LOC_ParentalControlHider_Error_FailedToUnhide">Failed to Unhide games.</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_GameMenu_AddToWhitelist">Add to Whitelist</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_GameMenu_RemoveFromWhitelist">Remove from Whitelist</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_General_Header">General</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_MainMenu_Hide">Hide Games</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_MainMenu_Unhide">Unhide Games</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_Birthday">Birthday</sys:String>
@@ -20,7 +21,11 @@
     <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_Name">Name</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_ReleaseDate">Release Date</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_Remove">Remove</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_MinutesToRunAfterUnhidden">Minutes before games are hidden</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_Tags_Header">Tags</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_Genres_Header">Genres</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_RunAfterUnhidden">Hide games some time after they're un-hidden</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_RunOnApplicationStarted">Hide games on Playnite start</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_RunOnLibraryUpdated">Hide games after library update</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_WhitelistedGames">Whitelisted Games</sys:String>
 </ResourceDictionary>

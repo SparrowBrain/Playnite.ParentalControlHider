@@ -5,6 +5,11 @@ namespace ParentalControlHider.Settings
 {
 	public class ParentalControlHiderSettings : ObservableObject
 	{
+		private bool _runOnApplicationStarted;
+		private bool _runOnLibraryUpdated;
+		private bool _runAfterUnhidden;
+		private int _minutesToRunAfterUnhidden;
+
 		public static ParentalControlHiderSettings Default => new ParentalControlHiderSettings
 		{
 			Birthday = DateTime.Now,
@@ -14,13 +19,29 @@ namespace ParentalControlHider.Settings
 			MinutesToRunAfterUnhidden = 30,
 		};
 
-		public bool RunOnApplicationStarted { get; set; }
+		public bool RunOnApplicationStarted
+		{
+			get => _runOnApplicationStarted;
+			set => SetValue(ref _runOnApplicationStarted, value);
+		}
 
-		public bool RunOnLibraryUpdated { get; set; }
+		public bool RunOnLibraryUpdated
+		{
+			get => _runOnLibraryUpdated;
+			set => SetValue(ref _runOnLibraryUpdated, value);
+		}
 
-		public bool RunAfterUnhidden { get; set; }
+		public bool RunAfterUnhidden
+		{
+			get => _runAfterUnhidden;
+			set => SetValue(ref _runAfterUnhidden, value);
+		}
 
-		public int MinutesToRunAfterUnhidden { get; set; }
+		public int MinutesToRunAfterUnhidden
+		{
+			get => _minutesToRunAfterUnhidden;
+			set => SetValue(ref _minutesToRunAfterUnhidden, value);
+		}
 
 		public DateTime Birthday { get; set; }
 
