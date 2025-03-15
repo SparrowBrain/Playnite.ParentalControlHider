@@ -1,0 +1,12 @@
+﻿Id: ParentalControlHider_134725de-cfcb-4474-849b-5d9c52babb75
+Name: Parental Control Hider
+Author: SparrowBrain
+Version: 1.2.3
+Module: ParentalControlHider.dll
+Type: GenericPlugin
+Icon: icon.png
+Links:
+    - Name: GitHub
+      Url: https://github.com/SparrowBrain/Playnite.ParentalControlHider
+    - Name: Translate
+      Url: https://crowdin.com/project/sparrowbrain-playnite-year-in-review
