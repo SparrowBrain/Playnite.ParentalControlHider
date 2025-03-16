@@ -1,21 +1,20 @@
-﻿using System;
+﻿using ReleaseTools.Changelog;
+using ReleaseTools.ExtensionYaml;
+using ReleaseTools.GitHubTools;
+using ReleaseTools.InstallerManifestYaml;
+using ReleaseTools.Package;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Authentication;
 using System.Threading.Tasks;
-using ReleaseTools.Changelog;
-using ReleaseTools.ExtensionYaml;
-using ReleaseTools.GitHubTools;
-using ReleaseTools.InstallerManifestYaml;
-using ReleaseTools.Package;
 
 namespace ReleaseTools
 {
 	public class Program
 	{
-		public const string AddonId = "ParentalControlHider_134725de-cfcb-4474-849b-5d9c52babb75";
 		public const string AddonName = "ParentalControlHider";
 
 		private static async Task Main(string[] args)
@@ -24,7 +23,7 @@ namespace ReleaseTools
 			var pathToSolution = "..";
 
 			var msBuild = @"""C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe""";
-			var testRunner = $@"""{pathToSolution}\packages\xunit.runner.console.2.9.2\tools\net462\xunit.console.exe""";
+			var testRunner = $@"""{pathToSolution}\packages\xunit.runner.console.2.9.3\tools\net462\xunit.console.exe""";
 			var toolbox = @"""C:\Users\Qwx\AppData\Local\Playnite\Toolbox.exe""";
 
 			await EnsureGitHubAuthentication();

@@ -5,3 +5,8 @@ Version: 1.0
 Module: ParentalControlHider.dll
 Type: GenericPlugin
 Icon: icon.png
+Links:
+    - Name: GitHub
+      Url: https://github.com/SparrowBrain/Playnite.ParentalControlHider
+    - Name: Translate
+      Url: https://crowdin.com/project/sparrowbrain-playnite-parental
