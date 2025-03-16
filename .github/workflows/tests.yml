@@ -28,7 +28,6 @@ jobs:
     - name: Run xUnit # very fragile
       run: > 
         ${{ github.workspace }}\${{ env.XUNIT_PATH }} 
-        # ${{ github.workspace }}\${{ env.SOLUTION_NAME }}.IntegrationTests\bin\Release\${{ env.SOLUTION_NAME }}.IntegrationTests.dll 
         ${{ github.workspace }}\${{ env.SOLUTION_NAME }}.UnitTests\bin\Release\${{ env.SOLUTION_NAME }}.UnitTests.dll         
         ${{ github.workspace }}\ReleaseTools.IntegrationTests\bin\Release\ReleaseTools.IntegrationTests.dll 
         ${{ github.workspace }}\ReleaseTools.UnitTests\bin\Release\ReleaseTools.UnitTests.dll 
