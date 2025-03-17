@@ -1,0 +1,30 @@
+﻿<?xml version="1.0"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="LOC_ParentalControlHider_Error_FailedToHide">Nepavyko paslėpti žaidimų.</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Error_FailedToUnhide">Nepavyko parodyti žaidimų.</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_GameMenu_AddToWhitelist">Pridėti prie baltojo sąrašo</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_GameMenu_RemoveFromWhitelist">Pašalinti iš baltojo sąrašo</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_General_Header">Bendrieji nustatymai</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_MainMenu_Hide">Slėpti žaidimus</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_MainMenu_Unhide">Rodyti žaidimus</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_Birthday">Gimtadienis</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_Header">Amžiaus reitingai</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_IsUsed">Naudoti</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_MinimumAge">Minimalus amžius</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Allowed">Leidžiama</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Blacklisted">Uždrausta</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Error_Birthday">Įvestas gimtadienis nėra data.</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Filter">Filtras</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_Header">Žaidimai</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_Library">Biblioteka</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_Name">Pavadinimas</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_ReleaseDate">Išleidimo data</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_Remove">Pašalinti</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_MinutesToRunAfterUnhidden">Minutės iki žaidimų paslėpimo po parodymo</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Tags_Header">Žymos</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Genres_Header">Žanrai</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_RunAfterUnhidden">Slėpti žaidimus kažkiek laiko po jų parodymo</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_RunOnApplicationStarted">Slėpti žaidimus paleidus Playnite</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_RunOnLibraryUpdated">Slėpti žaidimus po bibliotekos atnaujinimo</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_WhitelistedGames">Baltasis žaidimų sąrašas</sys:String>
+</ResourceDictionary>
