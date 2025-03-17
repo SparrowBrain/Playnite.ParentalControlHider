@@ -12,7 +12,7 @@ namespace ParentalControlHider.Settings
 
 		public static ParentalControlHiderSettings Default => new ParentalControlHiderSettings
 		{
-			Birthday = DateTime.Now,
+			Birthday = DateTime.Now.Date,
 			RunOnApplicationStarted = true,
 			RunOnLibraryUpdated = true,
 			RunAfterUnhidden = true,
