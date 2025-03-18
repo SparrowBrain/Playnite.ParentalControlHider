@@ -5,7 +5,7 @@
         public string GetName(string version)
         {
             var versionNumbers = version.Split('.');
-            return $"SparrowBrain_{Program.AddonName}_{versionNumbers[0]}_{versionNumbers[1]}_{versionNumbers[2]}.pext";
+            return $"{Program.AddonId}_{versionNumbers[0]}_{versionNumbers[1]}_{versionNumbers[2]}.pext";
         }
     }
 }

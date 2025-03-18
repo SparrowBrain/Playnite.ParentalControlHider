@@ -15,6 +15,7 @@ namespace ReleaseTools
 {
 	public class Program
 	{
+		public const string AddonId = "ParentalControlHider_134725de-cfcb-4474-849b-5d9c52babb75";
 		public const string AddonName = "ParentalControlHider";
 
 		private static async Task Main(string[] args)
