@@ -1,2 +1,8 @@
-AddonId: ParentalControlHider_134725de-cfcb-4474-849b-5d9c52babb75
+AddonId: P  - Version: 1.0.0
+    RequiredApiVersion: 6.11.0
+    ReleaseDate: 2025-03-18
+    PackageUrl: https://github.com/SparrowBrain/Playnite.ParentalControlHider/releases/download/v1.0.0/ParentalControlHider_134725de-cfcb-4474-849b-5d9c52babb75_1_0_0.pext
+    Changelog:
+      - Initial release
+arentalControlHider_134725de-cfcb-4474-849b-5d9c52babb75
 Packages:
