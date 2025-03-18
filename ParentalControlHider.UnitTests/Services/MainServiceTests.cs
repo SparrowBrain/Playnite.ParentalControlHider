@@ -6,6 +6,7 @@ using ParentalControlHider.Settings;
 using Playnite.SDK;
 using Playnite.SDK.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TestTools.Shared;
 using Xunit;
 
@@ -15,11 +16,12 @@ namespace ParentalControlHider.UnitTests.Services
 	{
 		[Theory]
 		[AutoFakeItEasyData]
-		public void HideGames_(
+		public async Task HideGames_(
 			[Frozen] IPlayniteAPI api,
 			[Frozen] IParentalHiderTagProvider parentalHiderTagProvider,
 			[Frozen] IManagedGamesFilter managedGamesFilter,
 			[Frozen] ITagsBlacklist tagsBlacklist,
+			ParentalControlHiderSettings settings,
 			List<Game> games,
 			Tag parentalHiderTag,
 			MainService sut)
@@ -32,7 +34,7 @@ namespace ParentalControlHider.UnitTests.Services
 			A.CallTo(() => tagsBlacklist.DoesItContainBlacklistedTag(A<Game>._, A<ParentalControlHiderSettings>._)).Returns(false);
 
 			// Act
-			sut.HideGames();
+			await sut.HideGames(settings);
 
 			// Assert
 			Assert.All(testableGames, x => Assert.False(x.Hidden));

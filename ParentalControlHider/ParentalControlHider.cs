@@ -1,7 +1,6 @@
 ﻿using ParentalControlHider.Infrastructure;
 using ParentalControlHider.Services;
 using ParentalControlHider.Services.Filters;
-using ParentalControlHider.Settings;
 using ParentalControlHider.Settings.MVVM;
 using Playnite.SDK;
 using Playnite.SDK.Events;
@@ -101,8 +100,9 @@ namespace ParentalControlHider
 			{
 				try
 				{
+					var settings = GetExtensionSettings().Settings;
 					var mainService = CreateMainService();
-					await mainService.HideGames();
+					await mainService.HideGames(settings);
 				}
 				catch (Exception e)
 				{
@@ -142,7 +142,6 @@ namespace ParentalControlHider
 
 		private MainService CreateMainService()
 		{
-			var pluginSettingsPersistence = new PluginSettingsPersistence(this);
 			var parentalHiderTagProvider = new ParentalHiderTagProvider(PlayniteApi);
 			var managedGamesFilter = new ManagedGamesFilter();
 			var dateTimeProvider = new DateTimeProvider();
@@ -153,7 +152,6 @@ namespace ParentalControlHider
 			var gamesWhitelist = new GamesWhitelist();
 			var mainService = new MainService(
 				PlayniteApi,
-				pluginSettingsPersistence,
 				parentalHiderTagProvider,
 				managedGamesFilter,
 				gamesToHideFilter,

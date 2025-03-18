@@ -1,7 +1,6 @@
 ﻿using ParentalControlHider.Services.Filters;
 using ParentalControlHider.Settings;
 using Playnite.SDK;
-using Playnite.SDK.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -14,7 +13,6 @@ namespace ParentalControlHider.Services
 		private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
 		private readonly IPlayniteAPI _api;
-		private readonly IPluginSettingsPersistence _pluginSettingsPersistence;
 		private readonly IParentalHiderTagProvider _parentalHiderTagProvider;
 		private readonly IManagedGamesFilter _managedGamesFilter;
 		private readonly IGamesToHideFilter _gamesToHideFilter;
@@ -22,25 +20,22 @@ namespace ParentalControlHider.Services
 
 		public MainService(
 			IPlayniteAPI api,
-			IPluginSettingsPersistence pluginSettingsPersistence,
 			IParentalHiderTagProvider parentalHiderTagProvider,
 			IManagedGamesFilter managedGamesFilter,
 			IGamesToHideFilter gamesToHideFilter,
 			IGamesWhitelist gamesWhitelist)
 		{
 			_api = api;
-			_pluginSettingsPersistence = pluginSettingsPersistence;
 			_parentalHiderTagProvider = parentalHiderTagProvider;
 			_managedGamesFilter = managedGamesFilter;
 			_gamesToHideFilter = gamesToHideFilter;
 			_gamesWhitelist = gamesWhitelist;
 		}
 
-		public async Task HideGames()
+		public async Task HideGames(ParentalControlHiderSettings settings)
 		{
 			await _semaphore.WaitAsync();
 			var tag = _parentalHiderTagProvider.GetParentalHiderTag();
-			var settings = _pluginSettingsPersistence.LoadPluginSettings<ParentalControlHiderSettings>();
 
 			using (var _ = _api.Database.BufferedUpdate())
 			{
@@ -90,19 +85,6 @@ namespace ParentalControlHider.Services
 					}
 				});
 			}
-		}
-	}
-
-	public interface IGamesWhitelist
-	{
-		bool IsOnWhitelist(Game game, ParentalControlHiderSettings settings);
-	}
-
-	public class GamesWhitelist : IGamesWhitelist
-	{
-		public bool IsOnWhitelist(Game game, ParentalControlHiderSettings settings)
-		{
-			return settings.WhitelistedGameIds?.Contains(game.Id) ?? false;
 		}
 	}
 }
