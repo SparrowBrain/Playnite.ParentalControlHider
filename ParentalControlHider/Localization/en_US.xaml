@@ -2,12 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="LOC_ParentalControlHider_Error_FailedToHide">Failed to hide games.</sys:String>
-    <sys:String x:Key="LOC_ParentalControlHider_Error_FailedToUnhide">Failed to Unhide games.</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Error_FailedToUnhide">Failed to show games.</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_GameMenu_AddToWhitelist">Add to Whitelist</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_GameMenu_RemoveFromWhitelist">Remove from Whitelist</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_General_Header">General</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_MainMenu_Hide">Hide Games</sys:String>
-    <sys:String x:Key="LOC_ParentalControlHider_MainMenu_Unhide">Unhide Games</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_MainMenu_Unhide">Show Games</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_Birthday">Birthday</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_Header">Age Ratings</sys:String>
     <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_IsUsed">Is Used</sys:String>
