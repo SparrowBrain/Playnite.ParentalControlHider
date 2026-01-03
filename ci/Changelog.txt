@@ -1,4 +1,5 @@
---------v1.0.1
+v1.1.0
+- Added Brazilian Portuguese translations (thank you TheNutellas!)
 - Changed 'Unhide' to 'Show' in English translations
 
 v1.0.0
