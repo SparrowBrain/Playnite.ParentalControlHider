@@ -1,0 +1,30 @@
+﻿<?xml version="1.0"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="LOC_ParentalControlHider_Error_FailedToHide">Αποτυχία απόκρυψης παιχνιδιών.</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Error_FailedToUnhide">Αποτυχία εμφάνισης παιχνιδιών</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_GameMenu_AddToWhitelist">Προσθήκη στα επιτρεπόμενα</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_GameMenu_RemoveFromWhitelist">Αφαίρεση από τα επιτρεπόμενα</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_General_Header">Γενικά</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_MainMenu_Hide">Απόκρυψη Παιχνιδιών</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_MainMenu_Unhide">Εμφάνιση Παιχνιδιών</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_Birthday">Γενέθλια</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_Header">Αξιολογήσεις Ηλικίας</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_IsUsed">Χρησιμοποιούνται</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_MinimumAge">Ελάχιστη ηλικία</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Allowed">Επιτρεπόμενα</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Blacklisted">Αποκλεισμένα</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Error_Birthday">Τα γενέθλια δεν είναι έγκυρη ημερομηνία.</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Filter">Φίλτρο</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_Header">Παιχνίδια</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_Library">Βιβλιοθήκη</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_Name">Όνομα</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_ReleaseDate">Ημερομηνία Κυκλοφορίας</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_Remove">Κατάργηση</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_MinutesToRunAfterUnhidden">Λεπτά πριν τα παιχνίδια αποκρύβουν</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Tags_Header">Ετικέτες</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Genres_Header">Κατηγορίες</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_RunAfterUnhidden">Απόκρυψη παιχνιδιών κάποια στιγμή μετά την απόκρυψη</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_RunOnApplicationStarted">Απόκρυψη παιχνιδιών κατά την εκκίνηση του Playnite</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_RunOnLibraryUpdated">Απόκρυψη παιχνιδιών μετά την ενημέρωση βιβλιοθήκης</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_WhitelistedGames">Επιτρεπόμενα Παιχνίδια</sys:String>
+</ResourceDictionary>
