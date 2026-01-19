@@ -1,3 +1,7 @@
+v1.2.0
+- Added Greek translations (thank you akoutsoulelos!)
+- Added German translations (thank you juliuscaesr!)
+
 v1.1.0
 - Added Brazilian Portuguese translations (thank you TheNutellas!)
 - Changed 'Unhide' to 'Show' in English translations
