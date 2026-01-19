@@ -1,0 +1,30 @@
+﻿<?xml version="1.0"?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="LOC_ParentalControlHider_Error_FailedToHide">Spiele können nicht versteckt werden.</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Error_FailedToUnhide">Spiele können nicht angezeigt werden.</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_GameMenu_AddToWhitelist">Add to Whitelist</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_GameMenu_RemoveFromWhitelist">Remove from Whitelist</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_General_Header">Allgemein</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_MainMenu_Hide">Verstecke Spiele</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_MainMenu_Unhide">Zeige Spiele</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_Birthday">Geburtstag</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_Header">Alters </sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_IsUsed">Wird benutzt</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_AgeRatings_MinimumAge">Mindestalter</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Allowed">Erlaubt</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Blacklisted">Blacklisted</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Error_Birthday">Geburtstag ist kein valides Datum</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Filter">Filter</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_Header">Spiele</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_Library">Bücherei</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_Name">Name</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_ReleaseDate">Veröffentlichungsdatum</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Games_Remove">Verstecke</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_MinutesToRunAfterUnhidden">Minuten bevor Spiele versteckt werden</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Tags_Header">Tags</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_Genres_Header">Genres</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_RunAfterUnhidden">Verstecke Spiele einige Zeit, nachdem sie wieder sichtbar gemacht wurden</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_RunOnApplicationStarted">Verstecke Spiele nach Playnite Start</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_RunOnLibraryUpdated">Verstecke Spiele nach Bibliothek Update</sys:String>
+    <sys:String x:Key="LOC_ParentalControlHider_Settings_WhitelistedGames">Whitelisted Games</sys:String>
+</ResourceDictionary>
